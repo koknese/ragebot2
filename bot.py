@@ -11,7 +11,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.1.0-beta"
+version = "v.1.1.1-beta"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -163,8 +163,10 @@ class Postui(ui.Modal, title='Posting to Rageboard'):
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         embed.set_footer(text=f"@Rageboard | {version}")
         rageboard = bot.get_channel(1341507240762540147)
-        await rageboard.send(f"{format_dt(datetime.now(), style='F')}", embed=embed)
-        
+        message = await rageboard.send(f"{format_dt(datetime.now(), style='F')}", embed=embed)
+        mid = message.id
+        thread = await message.create_thread(name=f'Rageboard thread {mid}')
+
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         if interaction.response.is_done():
             print(f"Error occurred: {error}")
