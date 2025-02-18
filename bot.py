@@ -22,13 +22,6 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"YouTube poops"))
     print(discord.__version__)
 
-def parse_embed_json(json_file):
-    embeds_json = loads(json_file)['embeds']
-
-    for embed_json in embeds_json:
-        embed = Embed().from_dict(embed_json)
-        yield embed
-
 @bot.event
 async def on_member_join(member):
     sauceRole = 1301977681474224173
