@@ -162,7 +162,7 @@ class Postui(ui.Modal, title='Posting to Rageboard'):
             embed.set_thumbnail(url=self.image.value)
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         embed.set_footer(text=f"@Rageboard | {version}")
-        rageboard = bot.get_channel(1301977681671225397)
+        rageboard = bot.get_channel(1341507240762540147)
         await rageboard.send(f"{format_dt(datetime.now(), style='F')}", embed=embed)
         
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
