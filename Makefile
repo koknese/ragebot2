@@ -4,7 +4,7 @@ profiles_dir:
 env_exists:
 	@test -f ./.env
 
-setup: requirements.txt
+setup: deps
 	@pip install -r deps
 
 clean:
