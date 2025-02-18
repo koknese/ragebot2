@@ -66,12 +66,10 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
         color=4321431
     )
 
-# Set the author
     embed.set_author(
       name=f"Ragecord Utils {version}",
     )
 
-# Add fields
     embed.add_field(
       name="Pronouns",
       value=pronouns,
