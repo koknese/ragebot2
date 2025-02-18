@@ -1,11 +1,12 @@
 import discord
 import json
-from discord import app_commands, Embed
-from discord.utils import get # New import
+from discord import app_commands, Embed, ui
+from discord.utils import get, format_dt
 from discord.ext import commands
 from dotenv import load_dotenv
 from typing import Literal
 import os
+from datetime import datetime
 intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
@@ -141,6 +142,43 @@ async def viewProfile(interaction: discord.Interaction, user: discord.Member = N
         except FileNotFoundError:
             await interaction.response.send_message("[Rageutils] ***Errno 1*** File not found. (Does this user have a profile set up?) Stop.")
             
-            # 
+ 
+class Postui(ui.Modal, title='Posting to Rageboard'):
+    body = ui.TextInput(label='Body text', placeholder="Rage about something here!", style=discord.TextStyle.long)
+    image = ui.TextInput(label='Image link', placeholder="Paste an image link here if you have one!", style=discord.TextStyle.short, required=False)
+    green = ui.TextInput(label='Make greentext', placeholder="Write 'true' (case sensitive, write without commas) to make the embed a green text.", style=discord.TextStyle.short, required=False)
+
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.send_message(f'Sending to Rageboard...')
+        embed = discord.Embed(
+            color=discord.Colour.dark_green() if self.green.value == "true" else discord.Colour(0x000000),
+            description=self.body.value
+        )
+        embed.set_author(
+            name=interaction.user,
+            icon_url=interaction.user.avatar,
+        )
+        if self.image.value:
+            embed.set_thumbnail(url=self.image.value)
+        unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
+        embed.set_footer(text=f"@Rageboard | {version}")
+        rageboard = bot.get_channel(1301977681671225397)
+        await rageboard.send(f"{format_dt(datetime.now(), style='F')}", embed=embed)
+        
+    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
+        if interaction.response.is_done():
+            print(f"Error occurred: {error}")
+        else:
+            await interaction.response.send_message(f"{error}\n## Rageboard modal created successfully, but an ***extremely rare fatal error*** occured. Report this to the development team. Bailing out, you are on your own. Good luck.", ephemeral=True)
+        
+
+@tree.command(
+    name="post",
+    description="Post a thread on Rageboard",
+    guild=discord.Object(id=server_id)
+)
+async def post(interaction:discord.Interaction):
+    modal = Postui()
+    await interaction.response.send_modal(modal)
 bot.run(token)
 
