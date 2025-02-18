@@ -10,7 +10,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.0.1"
+version = "v.1.0.2-rc.1"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -49,7 +49,7 @@ async def hello (interaction: discord.Interaction):
         guild=discord.Object(id=server_id)
 )
 @app_commands.describe(bio="Your bio", banner="Your banner/image you want displayed on your profile", name="Your name you wish to be referred as", location="Country/location you'd like to display", status="Your short status")
-async def profileEdit (interaction: discord.Interaction, bio: str, banner: discord.Attachment, name: str, pronouns: str, location: str = "", status: str = "", birthday: str = ""):
+async def profileEdit (interaction: discord.Interaction, bio: str, banner: discord.Attachment, name: str, pronouns: str, location: str = "", status: str = "", birthday: str = "", colour: Literal["4red", "Eiffel 65 blue", "alien green", "simpson yellow", "annoying orange", "classic white", "YTP brown", "brony pink", "ourple"]):
     class Buttons(discord.ui.View):
         def __init__(self, *, timeout=180):
             super().__init__(timeout=timeout)
@@ -60,10 +60,30 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
               json.dump(embed_dict, f, indent=4)
             print(f"{interaction.user} created a profile")
             await interaction.response.send_message("Profile created!")
-
+            
+    def colourDetermine():
+        match colour:
+            case "4red":
+                return 7996160
+            case "Eiffel 65 Blue":
+                return 2183
+            case "alien green":
+                return 23559
+            case "simpson yellow":
+                return 16757248
+            case "annoying orange":
+                return 16738304
+            case "classic white":
+                return 16777215
+            case "brony pink":
+                return 16732323
+            case "ourple":
+                return 10312191
+        
+        
     embed = discord.Embed(
         title=f"{interaction.user} profile",
-        color=4321431
+        color=colourDetermine
     )
 
     embed.set_author(
