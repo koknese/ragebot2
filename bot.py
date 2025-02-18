@@ -124,6 +124,7 @@ async def viewProfile(interaction: discord.Interaction, user: discord.Member = N
             await interaction.response.send_message(embed=embed)
         except FileNotFoundError:
             await interaction.response.send_message("[Rageutils] ***Errno 1*** File not found. (Does this user have a profile set up?) Stop.")
-        
+            
+            # 
 bot.run(token)
 
