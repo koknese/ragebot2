@@ -10,7 +10,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.0.0-rc.1"
+version = "v.1.0.0-rc.2"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -107,6 +107,12 @@ async def viewProfile(interaction: discord.Interaction, user: discord.Member = N
     if user == None:
         embed = json_to_embed(f"profiles/{interaction.user}.json")
         await interaction.response.send_message(embed=embed)
+    if user != None:
+        try:
+            embed = json_to_embed(f"profiles/{user}.json")
+            await interaction.response.send_message(embed=embed)
+        except FileNotFoundError:
+            await interaction.response.send_message("[Rageutils] ***Errno 1*** File not found. (Does this user have a profile set up?) Stop.")
         
 bot.run(token)
 
