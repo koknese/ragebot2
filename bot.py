@@ -76,7 +76,7 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
         
     embed = discord.Embed(
         title=f"{interaction.user} profile",
-        color=colourDetermine
+        color=colourDetermine()
     )
 
     embed.set_author(
