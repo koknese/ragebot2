@@ -10,7 +10,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.0.1"
+version = "v.1.0.1-rc.2"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -59,6 +59,7 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
             with open(f'profiles/{interaction.user}.json', 'w') as f:
               json.dump(embed_dict, f, indent=4)
             print(f"{interaction.user} created a profile")
+            await interaction.response.send_message("Profile created!")
 
     embed = discord.Embed(
         title=f"{interaction.user} profile",
