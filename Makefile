@@ -2,7 +2,7 @@ profiles_dir:
 	@mkdir -p profiles
 
 env_exists:
-	@test -f ./.env
+	@if [ ! -f ./.env ]; then echo "Error: .env file not found"; exit 1; fi
 
 setup: deps
 	@pip install -r deps
