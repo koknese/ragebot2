@@ -11,7 +11,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.1.0-alpha"
+version = "v.1.1.0-beta"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
