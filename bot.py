@@ -10,7 +10,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.0.0-rc.4"
+version = "v.1.0.0"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -31,9 +31,9 @@ def parse_embed_json(json_file):
 
 @bot.event
 async def on_member_join(member):
-    patientID = 1301977681474224173
-    role_patient = discord.Object(id=patientID)
-    await member.add_roles(role_patient)
+    sauceRole = 1301977681474224173
+    sauceRole = discord.Object(id=patientID)
+    await member.add_roles(sauceRole)
 
 @tree.command(
         name='hello',
