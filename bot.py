@@ -109,7 +109,7 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
       inline=False
   )
 
-    embed.set_thumbnail(url=banner.url)
+    embed.set_image(url=banner.url)
     embed.set_footer(text="created 4 Ragecord by dainis koknese ")
 
     await interaction.response.send_message(embed=embed, ephemeral=True, view=Buttons())
