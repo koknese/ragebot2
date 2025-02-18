@@ -10,7 +10,7 @@ intents = discord.Intents.all()
 intents.members = True
 load_dotenv()
 server_id = 1301977681449189437
-version = "v.1.0.0"
+version = "v.1.0.1"
 token = os.getenv('TOKEN')
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -48,8 +48,8 @@ async def hello (interaction: discord.Interaction):
         description='Edit your ragecord profile!',
         guild=discord.Object(id=server_id)
 )
-#@app_commands.describe(name)
-async def profileEdit (interaction: discord.Interaction, bio: str, banner: discord.Attachment, name: str, pronouns: str, location: str = "", status: str = "", ):
+@app_commands.describe(bio="Your bio", banner="Your banner/image you want displayed on your profile", name="Your name you wish to be referred as", location="Country/location you'd like to display", status="Your short status")
+async def profileEdit (interaction: discord.Interaction, bio: str, banner: discord.Attachment, name: str, pronouns: str, location: str = "", status: str = "", birthday: str = ""):
     class Buttons(discord.ui.View):
         def __init__(self, *, timeout=180):
             super().__init__(timeout=timeout)
@@ -77,6 +77,11 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
       inline=False
     )
     embed.add_field(
+      name="Location",
+      value=location,
+      inline=False
+    )
+    embed.add_field(
       name="Status",
       value=status,
       inline=False
@@ -84,6 +89,11 @@ async def profileEdit (interaction: discord.Interaction, bio: str, banner: disco
     embed.add_field(
       name="Bio",
       value=bio,
+      inline=False
+  )
+    embed.add_field(
+      name="Birthday",
+      value=birthday,
       inline=False
   )
 
