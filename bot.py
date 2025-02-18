@@ -127,9 +127,12 @@ async def viewProfile(interaction: discord.Interaction, user: discord.Member = N
             return profileEmbed
 
     if user == None:
-        embed = json_to_embed(f"profiles/{interaction.user}.json")
-        embed.set_author(name=f"Ragecord Utils {version}")
-        await interaction.response.send_message(embed=embed)
+        try:
+            embed = json_to_embed(f"profiles/{interaction.user}.json")
+            embed.set_author(name=f"Ragecord Utils {version}")
+            await interaction.response.send_message(embed=embed)
+        except FileNotFoundError:
+            await interaction.response.send_message("[Rageutils] ***Errno 1*** File not found. (Does this user have a profile set up?) Stop.")
     if user != None:
         try:
             embed = json_to_embed(f"profiles/{user}.json")
