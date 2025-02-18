@@ -49,7 +49,7 @@ async def hello (interaction: discord.Interaction):
         guild=discord.Object(id=server_id)
 )
 @app_commands.describe(bio="Your bio", banner="Your banner/image you want displayed on your profile", name="Your name you wish to be referred as", location="Country/location you'd like to display", status="Your short status")
-async def profileEdit (interaction: discord.Interaction, bio: str, banner: discord.Attachment, name: str, pronouns: str, location: str = "", status: str = "", birthday: str = "", colour: Literal["4red", "Eiffel 65 blue", "alien green", "simpson yellow", "annoying orange", "classic white", "YTP brown", "brony pink", "ourple"]):
+async def profileEdit (interaction: discord.Interaction, bio: str, banner: discord.Attachment, name: str, pronouns: str, colour: Literal["4red", "Eiffel 65 blue", "alien green", "simpson yellow", "annoying orange", "classic white", "YTP brown", "brony pink", "ourple"], location: str = "", status: str = "", birthday: str = ""):
     class Buttons(discord.ui.View):
         def __init__(self, *, timeout=180):
             super().__init__(timeout=timeout)
