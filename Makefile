@@ -21,7 +21,7 @@ clean: # remove uneeded files
 
 .PHONY: deploy
 deploy: profiles_dir config_exists # Run the bot
-	@python bot.py
+	@python main.py
 
 .PHONY: menuconfig
 menuconfig: # Configure the bot
