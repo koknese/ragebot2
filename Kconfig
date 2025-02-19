@@ -13,4 +13,43 @@ config SERVER_ID
     help
         ID of the Discord server you want to deploy the bot on.
 
+config DEFAULT_ROLE_ID
+    int "Default role ID"
+    default ""
+    help
+        The ID of the role you want to give to someone upon joining.
+
+endmenu
+
+menu "Commands"
+config DEBUG_COMMANDS 
+    bool "Enable debug commands"
+    default n
+    help
+        Enable commands for debugging.
+
+config RAGEBOARD
+    bool "Enable Rageboard"
+    default y
+    help
+        Enable Rageboard, the social media clone.
+
+config PROFILES
+    bool "Enable profile commands"
+    default y
+    help
+        Enable profile commands for creation of user profiles and viewing them.
+
+if RAGEBOARD
+menu "Rageboard Settings"
+    config RAGEBOARD_CHANNEL_ID
+        int "Rageboard Channel ID"
+        default ""
+        help 
+            Channel ID of the channel where Rageboard posts will be located.
+
+endmenu
+endif
+
+
 endmenu

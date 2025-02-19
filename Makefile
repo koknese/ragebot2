@@ -16,6 +16,7 @@ setup: deps # Update the local repo and install deps
 
 .PHONY: clean
 clean: # remove uneeded files
+	@rm -rfv cogs/__pycache__
 	@rm -rfv __pycache__
 	@rm -v .config.old
 
