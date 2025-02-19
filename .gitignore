@@ -1,3 +1,5 @@
 /.env
 /.vscode
 /profiles
+.config.old
+.config

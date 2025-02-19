@@ -9,10 +9,12 @@ import os
 from datetime import datetime
 intents = discord.Intents.all()
 intents.members = True
-load_dotenv()
-server_id = os.getenv('SERVERID')
-version = "v.1.1.1-beta"
-token = os.getenv('TOKEN')
+version = "v.1.1.2-beta"
+
+load_dotenv('.config', override=True)
+server_id = os.getenv('CONFIG_SERVER_ID')
+token = os.getenv('CONFIG_TOKEN')
+
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
 
@@ -151,7 +153,7 @@ class Postui(ui.Modal, title='Posting to Rageboard'):
     async def on_submit(self, interaction: discord.Interaction):
         await interaction.response.send_message(f'Sending to Rageboard...')
         embed = discord.Embed(
-            color=discord.Colour.dark_green() if self.green.value == "true" else discord.Colour(0x000000),
+            color=discord.Colour.dark_green() if self.green.value == "true" else 2183,
             description=self.body.value
         )
         embed.set_author(
