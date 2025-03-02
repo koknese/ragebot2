@@ -6,7 +6,7 @@ Includes a pseudo-social platform and user profile creation
 ### Installation
 
 1. Install dependencies with `make setup`
-2. Configure with `make menuconfig`
+2. Configure with `make menuconfig` (Depends on kconfig-mconf)
 3. Deploy with `make deploy`
 
 For more commands run `make`
