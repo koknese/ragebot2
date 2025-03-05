@@ -37,6 +37,7 @@ class Postui(ui.Modal, title='Posting to Rageboard'):
        rageboard_channel = interaction.client.get_channel(rageboard_id)
        message = await rageboard_channel.send(f"{format_dt(datetime.now(), style='F')}", embed=embed)
        mid = message.id
+       await message.add_reaction("♥️")
        thread = await message.create_thread(name=f'Rageboard thread {mid}')
 
    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
