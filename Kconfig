@@ -29,7 +29,7 @@ config DEBUG_COMMANDS
         Enable commands for debugging.
 
 config RAGEBOARD
-    bool "Enable Rageboard"
+    bool "Enable Rageboard" 
     default y
     help
         Enable Rageboard, the social media clone.
@@ -40,16 +40,25 @@ config PROFILES
     help
         Enable profile commands for creation of user profiles and viewing them.
 
-if RAGEBOARD
+config QUICKIMG
+    bool "Enable Quick Image"
+    default y
+    help
+        Enable Quick-Img for quickly sending reaction images.
+
 menu "Rageboard Settings"
-    config RAGEBOARD_CHANNEL_ID
-        int "Rageboard Channel ID"
-        default ""
-        help 
-            Channel ID of the channel where Rageboard posts will be located.
+    depends on RAGEBOARD
+config RAGEBOARD_CHANNEL_ID
+    int "Rageboard Channel ID"
+    default ""
+    help 
+        Channel ID of the channel where Rageboard posts will be located.
 
 endmenu
-endif
 
+menu "Quick Images"
+    depends on QUICKIMG
+
+endmenu
 
 endmenu
