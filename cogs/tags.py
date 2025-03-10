@@ -18,20 +18,26 @@ class Tags(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
+        
+    def doesnt_have_role(role_id: int):
+        def predicate(interaction: discord.Interaction) -> bool:
+            member = interaction.guild.get_member(interaction.user.id)
+            if member:
+                return role_id not in [role.id for role in member.roles]
+            return False
+        return predicate
     
     @app_commands.command(name='create-tag', description='Create a tag!')
     @app_commands.guilds(discord.Object(id=server_id))
-    @discord.ext.commands.has_role(tagbanned_id)
+    @discord.app_commands.check(doesnt_have_role(tagbanned_id))
     async def createTag(self, interaction: discord.Interaction, name: str, content: str):
         try:
-            await interaction.response.send_message("You were banned from creating tags")
-        except discord.ext.commands.MissingRole:
             if not os.path.exists("tags"):
                 os.makedirs("tags")
 
             path = f"tags/{name}.json"
             fileExists = os.path.exists(path)
-            if fileExists:
+            if not fileExists:
                 embed_dict = {
                     "name": name,
                     "creator": interaction.user.name,
@@ -44,6 +50,9 @@ class Tags(commands.Cog):
                 await interaction.response.send_message(f"Tag {name} created!")
             else:
                 await interaction.response.send_message(f"Tag {name} already exists!", ephemeral=True)
+        except discord.app_commands.CheckFailure:
+            await interaction.response.send_message(f"You might be banned or something has went wrong.", ephemeral=True)
+            
     
     @app_commands.command(name='tag', description='Read a tag')
     @app_commands.guilds(discord.Object(id=server_id))
@@ -58,7 +67,7 @@ class Tags(commands.Cog):
             
             await interaction.response.send_message(f"`tags/{tag}.json` || {content}\n-# tag created by {creator}")
         except FileNotFoundError:
-            await interaction.response.send_message(f"***[Errno 1]***: tags/{tagname}.json does not exist")
+            await interaction.response.send_message(f"***[Errno 1]***: tags/{tag}.json does not exist")
             
     @app_commands.command(name='delete-tag', description='Delete a tag')
     @app_commands.guilds(discord.Object(id=server_id))

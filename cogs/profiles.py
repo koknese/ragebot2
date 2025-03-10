@@ -26,6 +26,8 @@ class ProfileEditUI(ui.Modal, title='Creating a profile'):
                 @discord.ui.button(label="All good!",style=discord.ButtonStyle.green)
                 async def acceptEdits(self, interaction:discord.Interaction, view: discord.ui.View):
                     embed_dict = embed.to_dict()
+                    if not os.path.exists("profiles"):
+                        os.makedirs("profiles")
                     with open(f'profiles/{interaction.user}.json', 'w') as f:
                       json.dump(embed_dict, f, indent=4)
                     print(f"{interaction.user} created a profile")

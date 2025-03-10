@@ -1,7 +1,6 @@
 srctree := $(shell pwd)
 default: help
 obj := .
-CONFIG_PROFILES_VALUE := $(shell grep ^CONFIG_PROFILES= .config | cut -d= -f2-)
 
 config_exists:
 	@if [ ! -f ./.config ]; then echo "Error: .config file not found"; exit 1; fi
