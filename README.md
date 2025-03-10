@@ -3,8 +3,8 @@
 
 Includes;
 - tags/snippets
-- 
-
+- a social media clone
+  
 ### Installation
 
 0. (Nix(OS) only: Navigate to the directory and run `nix-shell`)
