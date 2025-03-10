@@ -1,7 +1,9 @@
 # Ragebot (Ragecord Utilities)
-## 1.2.1-alpha
+## 1.4.1
 
-Includes a pseudo-social platform and user profile creation
+Includes;
+- tags/snippets
+- 
 
 ### Installation
 
