@@ -1,6 +1,9 @@
 /.env
 /.vscode
 /profiles
+/tags
+/misc/__pycache__
 .config.old
 .config
 *.swp
+*.pyc

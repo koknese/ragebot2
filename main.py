@@ -20,11 +20,13 @@ debug_status = os.getenv('CONFIG_DEBUG_COMMANDS')
 profiles_status = os.getenv('CONFIG_PROFILES')
 rageboard_status = os.getenv('CONFIG_RAGEBOARD')
 stickers_status = os.getenv('CONFIG_STICKERS')
+tags_status = os.getenv('CONFIG_TAGS')
 
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
 
 @tree.command(name="load", description="DEBUG: load a cog", guild=discord.Object(id=server_id))
+@discord.app_commands.checks.has_permissions(manage_messages=True)
 async def load_cog(interaction: discord.Interaction, extension: str):
     await bot.load_extension(f"cogs.{extension}")
     await interaction.response.send_message(f"Cog '{extension}' loaded.")
@@ -32,6 +34,7 @@ async def load_cog(interaction: discord.Interaction, extension: str):
     print(f"Cog '{extension}' has been loaded.")
     
 @tree.command(name="unload", description="DEBUG: unload a cog", guild=discord.Object(id=server_id))
+@discord.app_commands.checks.has_permissions(manage_messages=True)
 async def load_cog(interaction: discord.Interaction, extension: str):
     await bot.unload_extension(f"cogs.{extension}")
     await interaction.response.send_message(f"Cog '{extension}' unloaded.")
@@ -39,6 +42,7 @@ async def load_cog(interaction: discord.Interaction, extension: str):
     print(f"Cog '{extension}' has been unloaded.")
     
 @tree.command(name="force-sync", description="DEBUG: forcesync", guild=discord.Object(id=server_id))
+@discord.app_commands.checks.has_permissions(manage_messages=True)
 async def forcesync(interaction: discord.Interaction):
     await tree.sync(guild=discord.Object(id=server_id)) 
     print(f"FORCE SYNC.")
@@ -58,6 +62,10 @@ async def on_ready():
     if rageboard_status == "y":
         await bot.load_extension("cogs.rageboard")
         print("Rageboard cog loaded!")
+        
+    if tags_status == "y":
+        await bot.load_extension("cogs.tags")
+        print("Tags cog loaded!")
         
     if stickers_status == "y":
         await bot.load_extension("cogs.stickers")

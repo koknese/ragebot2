@@ -34,6 +34,12 @@ config RAGEBOARD
     help
         Enable Rageboard, the social media clone.
 
+config TAGS
+    bool "Enable tags"
+    default y
+    help
+        Enable tags for sharing snippets of information.
+
 config STICKERS
     bool "Enable sticker creation from a command"
     default y
@@ -47,7 +53,7 @@ config PROFILES
         Enable profile commands for creation of user profiles and viewing them. Deprecated due to somewhat complicated and unintuitive design. Turning it on does no harm.
 
 if RAGEBOARD
-menu "Rageboard Settings"
+menu "Rageboard settings"
     config RAGEBOARD_CHANNEL_ID
         int "Rageboard Channel ID"
         default ""
@@ -57,5 +63,15 @@ menu "Rageboard Settings"
 endmenu
 endif
 
+if TAGS
+menu "Tag settings"
+    config TAGS_BANNED_ID
+        int "Tag-banned user role ID"
+        default ""
+        help 
+            Role ID of users who will be unable to create tags.
+
+endmenu
+endif
 
 endmenu

@@ -14,17 +14,13 @@ setup: deps # Update the local repo and install deps
 .PHONY: clean
 clean: # remove uneeded files
 	@rm -rfv cogs/__pycache__
+	@rm -rfv misc/__pycache__
 	@rm -rfv __pycache__
 	@rm -v .config.old
 
 .PHONY: deploy
 deploy: config_exists # Run the bot
-	@if [ "$(CONFIG_PROFILES_VALUE)" = "y" ]; then \
-		mkdir -pv profiles; \
-	else \
-		echo "CONFIG_PROFILES is not set to y, skipping directory creation"; \
-	fi
-	@python main.py
+	@python -m main.py
 
 .PHONY: menuconfig
 menuconfig: # Configure the bot
