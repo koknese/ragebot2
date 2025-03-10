@@ -1,5 +1,4 @@
 srctree := $(shell pwd)
-include .config
 default: help
 obj := .
 CONFIG_PROFILES_VALUE := $(shell grep ^CONFIG_PROFILES= .config | cut -d= -f2-)
