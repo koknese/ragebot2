@@ -64,7 +64,7 @@ async def on_ready():
         print("Rageboard cog loaded!")
         
     if tags_status == "y":
-        await bot.load_extension("cogs.rageboard")
+        await bot.load_extension("cogs.tags")
         print("Tags cog loaded!")
         
     if stickers_status == "y":

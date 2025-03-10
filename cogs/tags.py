@@ -2,6 +2,7 @@ import discord
 import os
 import os.path
 import json
+from misc.paginator import Pagination
 from discord.ext import commands
 from discord import app_commands
 from dotenv import load_dotenv
@@ -65,6 +66,28 @@ class Tags(commands.Cog):
             await interaction.response.send_message(embed=embed)
         except FileNotFoundError:
             await interaction.response.send_message(f"***[Errno 1]***: File not found")
+    
+    # What you're about to see is the prime definition of being held together by gum & string
+    @app_commands.command(name='list-tags', description='List tags')
+    @app_commands.guilds(discord.Object(id=server_id))
+    async def show(self, interaction: discord.Interaction):
+        def get_taglist():
+            taglist = os.listdir("tags")
+            return taglist
+
+        taglist = get_taglist()
+        L = 10
+        async def get_page(page: int):
+            emb = discord.Embed(title="Tag list", description="")
+            offset = (page-1) * L
+            for tag in taglist[offset:offset+L]:
+                emb.description += f"`{tag}`\n"
+            emb.set_author(name=f"Requested by {interaction.user}")
+            n = Pagination.compute_total_pages(len(taglist), L)
+            emb.set_footer(text=f"Page {page} from {n}")
+            return emb, n
+
+        await Pagination(interaction, get_page).navegate()
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Tags(bot))

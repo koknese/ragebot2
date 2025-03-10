@@ -17,12 +17,13 @@ setup: deps # Update the local repo and install deps
 .PHONY: clean
 clean: # remove uneeded files
 	@rm -rfv cogs/__pycache__
+	@rm -rfv misc/__pycache__
 	@rm -rfv __pycache__
 	@rm -v .config.old
 
 .PHONY: deploy
 deploy: profiles_dir config_exists # Run the bot
-	@python main.py
+	@python -m main.py
 
 .PHONY: menuconfig
 menuconfig: # Configure the bot
