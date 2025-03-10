@@ -12,7 +12,7 @@ load_dotenv('../.config', override=True)
 server_id = os.getenv('CONFIG_SERVER_ID')
 version = os.getenv('VERSION')
 
-class CreateSticker(commands.Cog):
+class Stickers(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
@@ -34,3 +34,6 @@ class CreateSticker(commands.Cog):
             embed = discord.Embed(title="[Errno 3] HTTP Exception", description="There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!", colour=0xa51d2d)
             embed.set_footer(text=f"Ragecord Utils {version}")
             await interaction.send_message(embed=embed, ephemeral=True)
+            
+async def setup(bot: commands.Bot):
+    await bot.add_cog(Stickers(bot))
