@@ -53,7 +53,7 @@ config STICKERS
         Enable commands for creating stickers. Handy on mobile.
 
 if RAGEBOARD
-menu "Rageboard Settings"
+menu "Rageboard settings"
     config RAGEBOARD_CHANNEL_ID
         int "Rageboard Channel ID"
         default ""
@@ -63,5 +63,15 @@ menu "Rageboard Settings"
 endmenu
 endif
 
+if TAGS
+menu "Tag settings"
+    config TAGS_BANNED_ID
+        int "Tag-banned user role ID"
+        default ""
+        help 
+            Role ID of users who will be unable to create tags.
+
+endmenu
+endif
 
 endmenu
