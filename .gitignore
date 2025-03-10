@@ -1,6 +1,7 @@
 /.env
 /.vscode
 /profiles
+/tags
 .config.old
 .config
 *.swp
