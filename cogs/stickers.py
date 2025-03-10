@@ -19,4 +19,9 @@ class CreateSticker(commands.Cog):
     
     @app_commands.command(name='create-sticker', description='Create a sticker. Useful on mobile.')
     @app_commands.guilds(discord.Object(id=server_id))
-    async def createstickers(self, interaction: discord.Interaction, name: str, name):
+    async def createstickers(self, interaction: discord.Interaction, name: str, description: str, emoji: str, image: discord.Attachment):
+        try:
+            await create_sticker(name=name, description=description, emoji=emoji, file=image, reason=f"Sticker {name} was created by {interaction.user}")
+            embed = discord.Embed(title="Sticker created successfully!", colour=0x26a269)
+            embed.set_footer(text=f"Ragecord Utils {version}")
+            await interaction.response.send_message("Sticker created")
