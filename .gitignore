@@ -6,3 +6,4 @@
 .config.old
 .config
 *.swp
+*.pyc

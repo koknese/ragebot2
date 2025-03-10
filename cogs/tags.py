@@ -63,6 +63,7 @@ class Tags(commands.Cog):
             os.remove(f"tags/{tag}.json")
             embed = discord.Embed(title=f"Removed tag {tag}", description=f"Reason:\n{reason}", colour=0xff7800)
             embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar)
+            embed.set_footer(text=f"Ragecord Utils v.{version}")
             await interaction.response.send_message(embed=embed)
         except FileNotFoundError:
             await interaction.response.send_message(f"***[Errno 1]***: File not found")
