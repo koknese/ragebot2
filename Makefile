@@ -1,10 +1,7 @@
 srctree := $(shell pwd)
 default: help
 obj := .
-KCONFIG_CONFIG := .env
-
-profiles_dir:
-	@mkdir -p profiles
+CONFIG_PROFILES_VALUE := $(shell grep ^CONFIG_PROFILES= .config | cut -d= -f2-)
 
 config_exists:
 	@if [ ! -f ./.config ]; then echo "Error: .config file not found"; exit 1; fi
@@ -22,7 +19,7 @@ clean: # remove uneeded files
 	@rm -v .config.old
 
 .PHONY: deploy
-deploy: profiles_dir config_exists # Run the bot
+deploy: config_exists # Run the bot
 	@python -m main.py
 
 .PHONY: menuconfig
@@ -32,7 +29,6 @@ menuconfig: # Configure the bot
 .PHONY: config
 config: # Configure the bot (alias for menuconfig)
 	$(Q)kconfig-mconf Kconfig
-
 
 .PHONY: help
 help: # Show help for each of the Makefile recipes.

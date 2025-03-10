@@ -34,12 +34,6 @@ config RAGEBOARD
     help
         Enable Rageboard, the social media clone.
 
-config PROFILES
-    bool "Enable profile commands"
-    default y
-    help
-        Enable profile commands for creation of user profiles and viewing them.
-
 config TAGS
     bool "Enable tags"
     default y
@@ -51,6 +45,12 @@ config STICKERS
     default y
     help
         Enable commands for creating stickers. Handy on mobile.
+
+config PROFILES
+    bool "Enable profile commands (DEPRECATED)"
+    default n
+    help
+        Enable profile commands for creation of user profiles and viewing them. Deprecated due to somewhat complicated and unintuitive design. Turning it on does no harm.
 
 if RAGEBOARD
 menu "Rageboard settings"
