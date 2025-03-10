@@ -40,6 +40,12 @@ config PROFILES
     help
         Enable profile commands for creation of user profiles and viewing them.
 
+config TAGS
+    bool "Enable tags"
+    default y
+    help
+        Enable tags for sharing snippets of information.
+
 config STICKERS
     bool "Enable sticker creation from a command"
     default y
