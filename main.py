@@ -19,6 +19,7 @@ default_role = os.getenv('CONFIG_DEFAULT_ROLE_ID')
 debug_status = os.getenv('CONFIG_DEBUG_COMMANDS')
 profiles_status = os.getenv('CONFIG_PROFILES')
 rageboard_status = os.getenv('CONFIG_RAGEBOARD')
+stickers_status = os.getenv('CONFIG_STICKERS')
 
 bot = commands.Bot(command_prefix="sudo ", intents=intents)
 tree = bot.tree
@@ -57,6 +58,10 @@ async def on_ready():
     if rageboard_status == "y":
         await bot.load_extension("cogs.rageboard")
         print("Rageboard cog loaded!")
+        
+    if stickers_status == "y":
+        await bot.load_extension("cogs.stickers")
+        print("Sticker creation cog loaded!")
         
     await tree.sync(guild=discord.Object(id=server_id))  # Sync the commands after loading the cog
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name =f"YouTube poops"))

@@ -40,6 +40,12 @@ config PROFILES
     help
         Enable profile commands for creation of user profiles and viewing them.
 
+config STICKERS
+    bool "Enable sticker creation from a command"
+    default y
+    help
+        Enable commands for creating stickers. Handy on mobile.
+
 if RAGEBOARD
 menu "Rageboard Settings"
     config RAGEBOARD_CHANNEL_ID
