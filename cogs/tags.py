@@ -88,7 +88,8 @@ class Tags(commands.Cog):
     async def show(self, interaction: discord.Interaction):
         def get_taglist():
             taglist = os.listdir("tags")
-            return taglist
+            lst = [os.path.splitext(x)[0] for x in taglist]
+            return lst
 
         taglist = get_taglist()
         L = 10
