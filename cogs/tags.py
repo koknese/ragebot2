@@ -19,17 +19,8 @@ class Tags(commands.Cog):
         self.bot = bot
         self._last_member = None
         
-    def doesnt_have_role(role_id: int):
-        def predicate(interaction: discord.Interaction) -> bool:
-            member = interaction.guild.get_member(interaction.user.id)
-            if member:
-                return role_id not in [role.id for role in member.roles]
-            return False
-        return predicate
-    
     @app_commands.command(name='create-tag', description='Create a tag!')
     @app_commands.guilds(discord.Object(id=server_id))
-    @discord.app_commands.check(doesnt_have_role(tagbanned_id))
     async def createTag(self, interaction: discord.Interaction, name: str, content: str):
         try:
             if not os.path.exists("tags"):
@@ -38,14 +29,14 @@ class Tags(commands.Cog):
             path = f"tags/{name}.json"
             fileExists = os.path.exists(path)
             if not fileExists:
-                embed_dict = {
+                tag_dict = {
                     "name": name,
                     "creator": interaction.user.name,
                     "content": content
                 }
 
                 with open(f'tags/{name}.json', 'w') as f:
-                    json.dump(embed_dict, f, indent=4)
+                    json.dump(tag_dict, f, indent=4)
                 print(f"{interaction.user} created a tag")
                 await interaction.response.send_message(f"Tag {name} created!")
             else:
@@ -104,47 +95,6 @@ class Tags(commands.Cog):
             return emb, n
 
         await Pagination(interaction, get_page).navegate()
-
-    @app_commands.command(name='tag-ban', description='Ban a user from making tags')
-    @app_commands.guilds(discord.Object(id=server_id))
-    @app_commands.describe(user="User to ban from tags")
-    @discord.app_commands.checks.has_permissions(manage_roles=True)
-    async def banTag(self, interaction: discord.Interaction, user: discord.Member, reason: str):
-        try:
-            role = discord.Object(id=tagbanned_id)
-            await user.add_roles(role)
-            
-            embed = discord.Embed(title=f"Tagbanned {user}", description=f"Reason:\n{reason}", colour=0xff7800)
-            embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar)
-            embed.set_footer(text=f"Ragecord Utils v.{version}")
-            await interaction.response.send_message(embed=embed)
-        except discord.Forbidden:
-            await interaction.response.send_message("You do not have sufficient permissions.", ephemeral=True)
-        except discord.HTTPException:
-            embed = discord.Embed(title="[Errno 3] HTTP Exception", description="There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!", colour=0xa51d2d)
-            embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.send_message(embed=embed, ephemeral=True)
-            
-    @app_commands.command(name='tag-unban', description='Unban a user from making tags')
-    @app_commands.guilds(discord.Object(id=server_id))
-    @app_commands.describe(user="User to unban from tags")
-    @discord.app_commands.checks.has_permissions(manage_roles=True)
-    async def unbanTag(self, interaction: discord.Interaction, user: discord.Member, reason: str):
-        try:
-            role = discord.Object(id=tagbanned_id)
-            await user.remove_roles(role)
-            
-            embed = discord.Embed(title=f"Untagbanned {user}", description=f"Reason:\n{reason}", colour=0xff7800)
-            embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar)
-            embed.set_footer(text=f"Ragecord Utils v.{version}")
-            await interaction.response.send_message(embed=embed)
-        except discord.Forbidden:
-            await interaction.response.send_message("You do not have sufficient permissions.", ephemeral=True)
-        except discord.HTTPException:
-            embed = discord.Embed(title="[Errno 3] HTTP Exception", description="There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!", colour=0xa51d2d)
-            embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.send_message(embed=embed, ephemeral=True)
-            
 async def setup(bot: commands.Bot):
     await bot.add_cog(Tags(bot))
         
