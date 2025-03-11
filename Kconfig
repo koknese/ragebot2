@@ -63,15 +63,4 @@ menu "Rageboard settings"
 endmenu
 endif
 
-if TAGS
-menu "Tag settings"
-    config TAGS_BANNED_ID
-        int "Tag-banned user role ID"
-        default ""
-        help 
-            Role ID of users who will be unable to create tags.
-
-endmenu
-endif
-
 endmenu
