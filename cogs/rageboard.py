@@ -12,17 +12,29 @@ load_dotenv('../.config', override=True)
 rageboard_status = os.getenv('CONFIG_RAGEBOARD')
 rageboard_id = int(os.getenv('CONFIG_RAGEBOARD_CHANNEL_ID'))
 server_id = int(os.getenv('CONFIG_SERVER_ID'))
+booster_id = int(os.getenv('CONFIG_SERVER_BOOSTER_ID'))
 version = os.getenv('VERSION')
 
 class Postui(ui.Modal, title='Posting to Rageboard'):
    body = ui.TextInput(label='Body text', placeholder="Rage about something here!", style=discord.TextStyle.long)
    image = ui.TextInput(label='Image link', placeholder="Paste an image link here if you have one!", style=discord.TextStyle.short, required=False)
-   green = ui.TextInput(label='Make greentext', placeholder="Write 'true' (case sensitive, write without commas) to make the embed a green text.", style=discord.TextStyle.short, required=False)
+   green = ui.TextInput(label='Make greentext', placeholder="Write 'true' to make the embed a green text.", style=discord.TextStyle.short, required=False)
 
    async def on_submit(self, interaction: discord.Interaction):
+       role = interaction.guild.get_role(booster_id)
+       def checkBooster():
+           if role in interaction.user.roles:
+               return True
+           else:
+               return False
+       
        await interaction.response.send_message(f'Sending to Rageboard...')
+       default_color = discord.Colour(27010)
+       if checkBooster():
+           default_color = discord.Colour(14695336)
+       
        embed = discord.Embed(
-           color=discord.Colour.dark_green() if self.green.value == "true" else 2183,
+           color=discord.Colour.dark_green() if self.green.value.lower() == "true" else default_color,
            description=self.body.value
        )
        embed.set_author(
