@@ -19,6 +19,12 @@ config DEFAULT_ROLE_ID
     help
         The ID of the role you want to give to someone upon joining.
 
+config SERVER_BOOSTER_ID
+    int "Server Booster role ID"
+    default ""
+    help
+        The ID of the server booster role.
+
 endmenu
 
 menu "Commands"
