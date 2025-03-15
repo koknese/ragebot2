@@ -26,14 +26,14 @@ class Stickers(commands.Cog):
             embed = discord.Embed(title="Sticker created successfully!", colour=0x26a269)
             embed.set_footer(text=f"Ragecord Utils {version}")
             await interaction.response.send_message(embed=embed, ephemeral=True)
-        except discord.Forbidden:
+        except discord.errors.Forbidden:
             embed = discord.Embed(title="[Errno 2] You lack permissions to create stickers!", colour=0xa51d2d)
             embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.send_message(embed=embed, ephemeral=True)
-        except discord.HTTPException:
-            embed = discord.Embed(title="[Errno 3] HTTP Exception", description="There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!", colour=0xa51d2d)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
+        except discord.errors.HTTPException as err:
+            embed = discord.Embed(title="[Errno 3] HTTP Exception", description=f"There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!\n\nPossibly caused by an attachment size being too big.\n***Traceback:***\n{err}", colour=0xa51d2d)
             embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.send_message(embed=embed, ephemeral=True)
+            await interaction.response.send_message(embed=embed, ephemeral=True)
             
 async def setup(bot: commands.Bot):
     await bot.add_cog(Stickers(bot))

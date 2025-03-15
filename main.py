@@ -42,8 +42,9 @@ async def load_cog(interaction: discord.Interaction, extension: str):
     print(f"Cog '{extension}' has been unloaded.")
     
 @tree.command(name="force-sync", description="DEBUG: forcesync", guild=discord.Object(id=server_id))
-@discord.app_commands.checks.has_permissions(manage_messages=True)
+@discord.app_commands.checks.has_permissions(administrator=True)
 async def forcesync(interaction: discord.Interaction):
+    await interaction.response.send_message("Force sync...")
     await tree.sync(guild=discord.Object(id=server_id)) 
     print(f"FORCE SYNC.")
 
