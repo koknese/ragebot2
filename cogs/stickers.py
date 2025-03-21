@@ -20,20 +20,23 @@ class Stickers(commands.Cog):
     @app_commands.command(name='create-sticker', description='Create a sticker. Useful on mobile.')
     @app_commands.guilds(discord.Object(id=server_id))
     async def createstickers(self, interaction: discord.Interaction, name: str, description: str, emoji: str, image: discord.Attachment):
+        await interaction.response.defer(thinking=True)
         try:
             img = await image.to_file()
             await interaction.guild.create_sticker(name=name, description=description, emoji=emoji, file=img, reason=f"Sticker {name} was created by {interaction.user}")
             embed = discord.Embed(title="Sticker created successfully!", colour=0x26a269)
             embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
-        except discord.errors.Forbidden:
+            await interaction.followup.send(embed=embed, ephemeral=True)
+        except discord.errors.Forbidden as err:
             embed = discord.Embed(title="[Errno 2] You lack permissions to create stickers!", colour=0xa51d2d)
+            embed.set_image(url=f'https://http.cat/{err.status}.jpg')
             embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed, ephemeral=True)
         except discord.errors.HTTPException as err:
-            embed = discord.Embed(title="[Errno 3] HTTP Exception", description=f"There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!\n\nPossibly caused by an attachment size being too big.\n***Traceback:***\n{err}", colour=0xa51d2d)
+            embed = discord.Embed(title="[Errno 3] HTTP Exception", description=f"There has been rare, mythical, impossible and catastrophical error with the Discord API. If you see this, pick a god and pray, because the gates of hell have opened. Try again later!\n\n***Traceback:***\n{err}", colour=0xa51d2d)
+            embed.set_image(url=f'https://http.cat/{err.status}.jpg')
             embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.response.send_message(embed=embed, ephemeral=True)
+            await interaction.followup.send(embed=embed, ephemeral=True)
             
 async def setup(bot: commands.Bot):
     await bot.add_cog(Stickers(bot))
