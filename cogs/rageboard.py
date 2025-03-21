@@ -47,10 +47,12 @@ class Postui(ui.Modal, title='Posting to Rageboard'):
            embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
            embed.set_image(url=f'https://http.cat/{error.status}.jpg')
            embed.set_footer(text=f"Ragecord Utils {version}")
+           await interaction.send_message(embed=embed)
        else:
            embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
            embed.set_image(url=f'https://http.cat/{error.status}.jpg')
            embed.set_footer(text=f"Ragecord Utils {version}")
+           await interaction.send_message(embed=embed)
         
 class Postuipremium(ui.Modal, title='Posting to Rageboard with premium'):
    body = ui.TextInput(label='Body text', placeholder="Rage about something here!", style=discord.TextStyle.long)
@@ -89,10 +91,12 @@ class Postuipremium(ui.Modal, title='Posting to Rageboard with premium'):
            embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
            embed.set_image(url=f'https://http.cat/{error.status}.jpg')
            embed.set_footer(text=f"Ragecord Utils {version}")
+           await interaction.send_message(embed=embed)
        else:
            embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
            embed.set_image(url=f'https://http.cat/{error.status}.jpg')
            embed.set_footer(text=f"Ragecord Utils {version}")
+           await interaction.send_message(embed=embed)
            
 class Rageboard(commands.Cog):
     def __init__(self, bot):

@@ -59,9 +59,9 @@ class Tags(commands.Cog):
             await interaction.response.send_message(f"`tags/{tag}.json` || {content}\n-# tag created by {creator}")
         except FileNotFoundError:
             embed = discord.Embed(title="[Errno 1] File does not exist!", colour=0xa51d2d)
-            embed.set_image(url=f'https://http.cat/{err.status}.jpg')
+            embed.set_image(url=f'https://http.cat/404.jpg')
             embed.set_footer(text=f"Ragecord Utils {version}")
-            await interaction.response.send_message(f"***[Errno 1]***: tags/{tag}.json does not exist")
+            await interaction.response.send_message(embed=embed)
             
     @app_commands.command(name='delete-tag', description='Delete a tag')
     @app_commands.guilds(discord.Object(id=server_id))
@@ -73,10 +73,11 @@ class Tags(commands.Cog):
             embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar)
             embed.set_footer(text=f"Ragecord Utils v.{version}")
             await interaction.response.send_message(embed=embed)
-        except FileNotFoundError as err:
+        except FileNotFoundError:
             embed = discord.Embed(title="[Errno 1] File does not exist!", colour=0xa51d2d)
-            embed.set_image(url=f'https://http.cat/{err.status}.jpg')
+            embed.set_image(url=f'https://http.cat/404.jpg')
             embed.set_footer(text=f"Ragecord Utils {version}")
+            await interaction.response.send_message(embed=embed)
     
     # What you're about to see is the prime definition of being held together by gum & string
     @app_commands.command(name='list-tags', description='List tags')
