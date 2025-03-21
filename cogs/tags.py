@@ -42,7 +42,7 @@ class Tags(commands.Cog):
             else:
                 await interaction.response.send_message(f"Tag {name} already exists!", ephemeral=True)
         except discord.app_commands.CheckFailure:
-            await interaction.response.send_message(f"You might be banned or something has went wrong.", ephemeral=True)
+            await interaction.response.send_message(f"Something has went horribly wrong.", ephemeral=True)
             
     
     @app_commands.command(name='tag', description='Read a tag')
@@ -58,6 +58,9 @@ class Tags(commands.Cog):
             
             await interaction.response.send_message(f"`tags/{tag}.json` || {content}\n-# tag created by {creator}")
         except FileNotFoundError:
+            embed = discord.Embed(title="[Errno 1] File does not exist!", colour=0xa51d2d)
+            embed.set_image(url=f'https://http.cat/{err.status}.jpg')
+            embed.set_footer(text=f"Ragecord Utils {version}")
             await interaction.response.send_message(f"***[Errno 1]***: tags/{tag}.json does not exist")
             
     @app_commands.command(name='delete-tag', description='Delete a tag')
@@ -70,8 +73,10 @@ class Tags(commands.Cog):
             embed.set_author(name=interaction.user.name, icon_url=interaction.user.avatar)
             embed.set_footer(text=f"Ragecord Utils v.{version}")
             await interaction.response.send_message(embed=embed)
-        except FileNotFoundError:
-            await interaction.response.send_message(f"***[Errno 1]***: File not found")
+        except FileNotFoundError as err:
+            embed = discord.Embed(title="[Errno 1] File does not exist!", colour=0xa51d2d)
+            embed.set_image(url=f'https://http.cat/{err.status}.jpg')
+            embed.set_footer(text=f"Ragecord Utils {version}")
     
     # What you're about to see is the prime definition of being held together by gum & string
     @app_commands.command(name='list-tags', description='List tags')
