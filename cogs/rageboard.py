@@ -44,9 +44,13 @@ class Postui(ui.Modal, title='Posting to Rageboard'):
 
    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
        if interaction.response.is_done():
-           print(f"Error occurred: {error}")
+           embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
+           embed.set_image(url=f'https://http.cat/{error.status}.jpg')
+           embed.set_footer(text=f"Ragecord Utils {version}")
        else:
-           await interaction.response.send_message(f"{error}\n## Rageboard modal created successfully, but an ***extremely rare fatal error*** occured. Report this to the development team. Bailing out, you are on your own. Good luck.", ephemeral=True)
+           embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
+           embed.set_image(url=f'https://http.cat/{error.status}.jpg')
+           embed.set_footer(text=f"Ragecord Utils {version}")
         
 class Postuipremium(ui.Modal, title='Posting to Rageboard with premium'):
    body = ui.TextInput(label='Body text', placeholder="Rage about something here!", style=discord.TextStyle.long)
@@ -82,9 +86,14 @@ class Postuipremium(ui.Modal, title='Posting to Rageboard with premium'):
 
    async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
        if interaction.response.is_done():
-           print(f"Error occurred: {error}")
+           embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
+           embed.set_image(url=f'https://http.cat/{error.status}.jpg')
+           embed.set_footer(text=f"Ragecord Utils {version}")
        else:
-           await interaction.response.send_message(f"{error}\n## Rageboard modal created successfully, but an ***extremely rare fatal error*** occured. Report this to the development team. Bailing out, you are on your own. Good luck.", ephemeral=True)
+           embed = discord.Embed(title="[Errno 4] Unknown error!", description="God give us strength.", colour=0xa51d2d)
+           embed.set_image(url=f'https://http.cat/{error.status}.jpg')
+           embed.set_footer(text=f"Ragecord Utils {version}")
+           
 class Rageboard(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
