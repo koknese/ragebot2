@@ -1,6 +1,6 @@
 import discord
 import json
-from discord import app_commands, Embed, ui
+from discord import app_commands
 from discord.utils import get, format_dt
 from discord.ext import commands
 from dotenv import load_dotenv
